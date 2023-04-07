@@ -1,0 +1,23 @@
+{
+  "name": "tf-node-lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf node_modules && rm -rf lib && npm i && rm -rf *.zip",
+    "zip": "zip -r lambda.zip . -x 'tsconfig.json' -x 'src/*' -x 'infra/*' -x 'node_modules/*' -x '.git' ! -x '.git/*' -x 'public/*'",
+    "zip-test": "npm run clean && tsc -p src/hello/tsconfig.json && tsc-alias && npm run zip",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-lambda": "^1.0.7",
+    "huelgo-monad": "^1.0.10",
+    "tsc-alias": "^1.8.5"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.114"
+  }
+}

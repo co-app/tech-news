@@ -1,0 +1,15 @@
+# Common
+.DS_Store
+
+# Lambda
+
+# Output Folder / File
+*.zip
+node_modules
+lib
+
+# Terraform
+.terraform
+*.lock.hcl
+*.tfvars
+
