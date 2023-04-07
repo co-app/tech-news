@@ -1,4 +1,8 @@
-import { APIGatewayProxyEvent } from 'aws-lambda'
+export type APIGatewayProxyEvent = any
+
+export interface ObjectSchema {
+  validate(value: unknown): { error; value }
+}
 
 /**
  * Middleware

@@ -7,6 +7,7 @@
 *.zip
 node_modules
 lib
+nodejs
 
 # Terraform
 .terraform

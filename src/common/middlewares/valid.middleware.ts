@@ -1,7 +1,6 @@
-import { Middleware } from '@src/common/interface/middleware'
-import { APIGatewayProxyEvent } from 'aws-lambda'
+import { APIGatewayProxyEvent, Middleware, ObjectSchema } from '@src/common/interface/middleware'
 
-export const requestMiddleware: (schema: T) => Middleware<APIGatewayProxyEvent> = (schema) => {
+export const requestMiddleware: (schema: ObjectSchema) => Middleware<APIGatewayProxyEvent> = (schema) => {
   return (e, next) => {
     const { error, value } = schema.validate(e.body)
     if (error) {
