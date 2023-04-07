@@ -10,6 +10,7 @@
 
 ## Flow
 
+![arch](./public/arch.png)
 ![flow](./public/flow.png)
 
 ## Todo

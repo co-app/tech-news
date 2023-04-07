@@ -41,8 +41,6 @@ resource "aws_iam_role" "iam_lambda" {
 resource "aws_iam_role_policy_attachment" "cloudwatch_logs" {
     role = aws_iam_role.iam_lambda.name
     policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-
-    retention_in_days = 30
 }
 
 ## VPC Attachment

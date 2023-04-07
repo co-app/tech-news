@@ -7,7 +7,18 @@ module "iam_role" {
     aws_region = var.AWS_REGION
 }
 
-resource "aws_lambda_function" "lambda_hello_tf" {
+# Lambda Layer Version
+resource "aws_lambda_layer_version" "lambda_layer" {
+    filename = "../../layer.zip"
+    layer_name = var.LAYER_NAME
+    description = var.LAYER_DESC
+    compatible_runtimes = ["nodejs14.x"]
+
+    source_code_hash = "${filebase64sha256("../../layer.zip")}"
+}
+
+# Lambda Function
+resource "aws_lambda_function" "lambda_tf" {
     filename = "../../lambda.zip"
     function_name = var.FUNC_NAME
     description = var.FUNC_DESC
