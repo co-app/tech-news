@@ -4,20 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "rm -rf node_modules && rm -rf lib && npm i && rm -rf *.zip",
-    "zip": "zip -r lambda.zip . -x 'tsconfig.json' -x 'src/*' -x 'infra/*' -x 'node_modules/*' -x '.git' ! -x '.git/*' -x 'public/*'",
-    "zip-test": "npm run clean && tsc -p src/hello/tsconfig.json && tsc-alias && npm run zip",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf node_modules && rm -rf lib && rm -rf *.zip",
+    "function-zip": "zip -r lambda.zip . -x 'tsconfig.json' -x 'src/*' -x 'infra/*' -x 'node_modules/*' -x '.git' ! -x '.git/*' -x 'public/*' -x 'alias.sh' -x 'cli.mjs' -x '*.md' -x './package.json' -x './package-lock.json'",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cli:start": "npm i && node cli.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "aws-lambda": "^1.0.7",
-    "huelgo-monad": "^1.0.10",
+  "devDependencies": {
+    "@types/inquirer": "^9.0.3",
+    "@types/lodash": "^4.14.192",
+    "@types/node": "^18.15.11",
+    "cpy": "^9.0.1",
+    "ts-node": "^10.9.1",
     "tsc-alias": "^1.8.5"
   },
-  "devDependencies": {
-    "@types/aws-lambda": "^8.10.114"
+  "dependencies": {
+    "inquirer": "^9.1.5"
   }
 }
