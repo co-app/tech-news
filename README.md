@@ -45,3 +45,7 @@
 ## DB Schema
 
 ![schema](./public/db_schema.png)
+
+## Reference
+
+<a href="https://github.com/co-app/tech-news/issues/1">중재자 역할을 Kinesis로 사용한 이유</a>
