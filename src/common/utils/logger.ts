@@ -7,5 +7,7 @@ export class Logger {
 
   static debug() {}
 
-  static error() {}
+  static error(msg: any) {
+    console.log(JSON.stringify(msg, null, 2))
+  }
 }

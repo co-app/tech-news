@@ -11,6 +11,9 @@ export const requestMiddleware: <E>(
       throw exception(error.details?.map((it) => it.message).join())
     }
 
-    return next(value)
+    return next({
+      ...e,
+      body: value,
+    })
   }
 }

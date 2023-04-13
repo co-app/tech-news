@@ -1,17 +1,20 @@
-import { CognitoUserPool } from 'amazon-cognito-identity-js'
+import { Exception } from '@src/common/interface/exception'
+import { passed, Try } from 'huelgo-monad'
 import { AuthParams } from './auth.dto'
 
-interface HandlerParmas {
-  params: Omit<AuthParams, 'tag'>
-  userPool: CognitoUserPool
-}
+export const authHandler = async (params: AuthParams): Promise<Try<Exception, boolean>> => {
+  const [AWS, { CognitoUserPool }] = await Promise.all([
+    import('@src/common/services'),
+    import('amazon-cognito-identity-js'),
+  ])
 
-// export const loginHandler = () => {}
+  const cognitoService = new AWS.AuthService<AuthParams>()
 
-export const signUpHandler = async ({ params, userPool }: HandlerParmas) => {
-  try {
-    // const [AuthService] = await Promise.all(['@src/common/services/auth.service'])
-  } catch (e) {
-    console.error(e)
+  // join
+  if (params.tag === 'join') {
   }
+
+  // login
+
+  return passed(true)
 }

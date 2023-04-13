@@ -1,8 +1,10 @@
 import Joi from '@hapi/joi'
+import { Exception } from '@src/common/interface/exception'
 import { lambdaRouter } from '@src/common/interface/middleware'
 import { loggerMiddleware, requestMiddleware } from '@src/common/middlewares/index'
+import { statusToRespone } from '@src/common/utils'
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
-import { failed } from 'huelgo-monad'
+import { failed, isPass, Try } from 'huelgo-monad'
 import { AuthParams } from './auth.dto'
 
 const authParamDto = Joi.object<AuthParams>({
@@ -22,9 +24,22 @@ export const handler = lambdaRouter(
     ),
   ],
   async (e: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: 'hello world' }),
-    }
+    const [{ authHandler }, { makeResponse, Logger }] = await Promise.all([
+      import('./auth.handler'),
+      import('@src/common/utils'),
+    ])
+
+    return makeResponse(
+      await authHandler(e.body as unknown as AuthParams),
+      (t: Try<Exception, boolean>) => isPass(t),
+      {
+        successFn: (v) => statusToRespone(200, v.value),
+        failedFn: (e) => statusToRespone(500, e),
+      },
+      {
+        successLogger: (v) => Logger.info(v),
+        errorLogger: (e) => Logger.error(e),
+      }
+    )
   }
 )

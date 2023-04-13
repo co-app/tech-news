@@ -2,6 +2,6 @@
  * @params {P} Parameter
  * @params {K} User Pool
  */
-export class AuthService<P, K> {
+export class AuthService<P> {
   signup() {}
 }

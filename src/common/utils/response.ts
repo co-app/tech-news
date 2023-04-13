@@ -19,7 +19,7 @@ export const makeResponse = <T, K>(
   const { successFn, failedFn } = responseFn
   const { successLogger, errorLogger } = loggerfn
   try {
-    if (isSuccessFn) return successFn(p)
+    if (isSuccessFn(p)) return successFn(p)
 
     successLogger(p)
     return failedFn(p)
@@ -28,3 +28,8 @@ export const makeResponse = <T, K>(
     return failedFn(e)
   }
 }
+
+export const statusToRespone = (status: number, msg: any) => ({
+  statusCode: status,
+  body: JSON.stringify(msg),
+})
