@@ -1,4 +1,4 @@
-# Tech-news
+# Tech-news (진행중...)
 
 ## Desc
 
@@ -20,20 +20,31 @@
 - [ ] 유저 인증
   - [ ] 회원가입
   - [ ] 로그인
-- [ ] 유저 채널 관리 (채널 다중선택은 추후...)
+- [ ] 유저 채널 관리
 - [ ] 스케쥴링
 - [ ] 스케쥴링 실패 시 -> fail 관리
 
 > Function
 
-- [ ] Auth
-- [ ] Crawling (Puppeteer)
-- [ ] Optimize Crawling
+- Lambda
+
+  - [ ] Auth (Cognito)
+  - [ ] 설정
+
+- EC2
+
+  - [ ] Crawling (Puppeteer)
+  - [ ] Optimize Crawling
 
 > Cloud
 
 - [ ] Setting AWS Lambda use Terraform
-- [ ] Setting AWS Serverless Aurora DB use Terraform
+
+  - [x] Lambda
+  - [ ] API Gateway (each Function)
+  - [ ] Aurora Database
+  - [ ] Kinesis
+
 - [ ] Schduler
 
 ## Desc
