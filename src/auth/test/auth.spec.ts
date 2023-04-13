@@ -1,4 +1,18 @@
+import { handler } from '..'
+
 describe('auth unit test', () => {
+  it('[TEST] lambda test', (done) => {
+    const auth = handler({
+      httpMethod: 'GET',
+      body: JSON.stringify({ message: 'hello world' }),
+      headers: { 'Content-Type': 'application/json' },
+    })
+
+    console.log(auth)
+
+    done()
+  })
+
   it('[TEST] login handler', (done) => {
     done()
   })
