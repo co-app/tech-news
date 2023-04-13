@@ -5,13 +5,23 @@
   "engines": {
     "node": "14.x"
   },
+  "scripts": {
+    "test": "jest ./test"
+  },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
-    "@types/aws-lambda": "^8.10.114",
+    "amazon-cognito-identity-js": "^6.2.0",
     "aws-lambda": "^1.0.7",
+    "aws-sdk": "^2.1357.0",
+    "dotenv": "^16.0.3",
+    "huelgo-monad": "^1.0.10",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.21.4",
+    "@babel/preset-typescript": "^7.21.4",
+    "@types/aws-lambda": "^8.10.114",
+    "@types/jest": "^29.5.0",
     "@types/lodash": "^4.14.192",
     "ts-node": "^10.9.1"
   }

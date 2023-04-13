@@ -1,12 +1,19 @@
 import { APIGatewayProxyEvent, Middleware, ObjectSchema } from '@src/common/interface/middleware'
 
-export const requestMiddleware: (schema: ObjectSchema) => Middleware<APIGatewayProxyEvent> = (schema) => {
+export const requestMiddleware: <E>(
+  schema: ObjectSchema,
+  exception: (e: unknown) => E
+) => Middleware<APIGatewayProxyEvent> = (schema, exception) => {
   return (e, next) => {
-    const { error, value } = schema.validate(e.body)
+    const { error, value } = schema.validate(JSON.parse(e?.body))
+
     if (error) {
-      return Promise.reject(error)
+      throw exception(error.details?.map((it) => it.message).join())
     }
 
-    return next(value)
+    return next({
+      ...e,
+      body: value,
+    })
   }
 }
