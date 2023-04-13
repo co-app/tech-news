@@ -2,6 +2,7 @@ import Joi from '@hapi/joi'
 import { lambdaRouter } from '@src/common/interface/middleware'
 import { loggerMiddleware, requestMiddleware } from '@src/common/middlewares/index'
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
+import { failed } from 'huelgo-monad'
 import { AuthParams } from './auth.dto'
 
 const authParamDto = Joi.object<AuthParams>({
@@ -12,11 +13,15 @@ const authParamDto = Joi.object<AuthParams>({
 })
 
 export const handler = lambdaRouter(
-  [loggerMiddleware(), requestMiddleware(authParamDto)],
+  [
+    loggerMiddleware(),
+    requestMiddleware(authParamDto, (e) =>
+      failed({
+        message: e,
+      })
+    ),
+  ],
   async (e: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    const [{ Logger }] = await Promise.all([import('@src/common/utils/logger')])
-
-    Logger.info(e.body)
     return {
       statusCode: 200,
       body: JSON.stringify({ message: 'hello world' }),
