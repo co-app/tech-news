@@ -2,11 +2,11 @@ import Joi from '@hapi/joi'
 import { lambdaRouter } from '@src/common/interface/middleware'
 import { loggerMiddleware, requestMiddleware } from '@src/common/middlewares/index'
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
-import _ from 'lodash'
 import { AuthParams } from './auth.dto'
 
 const authParamDto = Joi.object<AuthParams>({
   tag: Joi.string().valid('login', 'join').required(),
+  username: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(6).max(20).required(),
 })
@@ -14,10 +14,9 @@ const authParamDto = Joi.object<AuthParams>({
 export const handler = lambdaRouter(
   [loggerMiddleware(), requestMiddleware(authParamDto)],
   async (e: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    const m = _.map([1, 2, 3], (n) => n * 2)
-    console.log(m)
+    const [{ Logger }] = await Promise.all([import('@src/common/utils/logger')])
 
-    console.log(e)
+    Logger.info(e.body)
     return {
       statusCode: 200,
       body: JSON.stringify({ message: 'hello world' }),
