@@ -7,4 +7,5 @@ module "iam_role" {
 # Kinesis Instance
 resource "aws_kinesis_stream" "kinesis_stream" {
     name = "kinesis-stream"
+    
 }

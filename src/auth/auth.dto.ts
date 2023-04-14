@@ -3,8 +3,8 @@
  */
 export interface AuthParams {
   tag: 'login' | 'join' | 'confirm'
-  username: string
+  username?: string
   email: string
-  password: string
+  password?: string
   verification_code?: string
 }

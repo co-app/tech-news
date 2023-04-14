@@ -6,7 +6,7 @@ export class AuthService {
     params: P,
     signupFn: (params: P) => Promise<unknown>,
     successFn: () => R,
-    failedFn: (e: unknown) => R
+    failedFn: (e: string) => R
   ): Promise<R> => {
     try {
       await signupFn(params)
