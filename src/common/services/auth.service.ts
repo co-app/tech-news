@@ -1,5 +1,13 @@
-export class AuthService<P, R> {
-  async signup(params: P, signupFn: (params: P) => Promise<unknown>, successFn: () => R, failedFn: (e: unknown) => R) {
+/**
+ * @desc stateless
+ */
+export class AuthService {
+  execute = async <P, R>(
+    params: P,
+    signupFn: (params: P) => Promise<unknown>,
+    successFn: () => R,
+    failedFn: (e: unknown) => R
+  ): Promise<R> => {
     try {
       await signupFn(params)
       return successFn()

@@ -8,10 +8,15 @@ import { failed, isPass, Try } from 'huelgo-monad'
 import { AuthParams } from './auth.dto'
 
 const authParamDto = Joi.object<AuthParams>({
-  tag: Joi.string().valid('login', 'join').required(),
+  tag: Joi.string().valid('login', 'join', 'confirm').required(),
   username: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(6).max(20).required(),
+  verification_code: Joi.when('tag', {
+    is: 'confirm',
+    then: Joi.string().required(),
+    otherwise: Joi.string().optional(),
+  }),
 })
 
 export const handler = lambdaRouter(
