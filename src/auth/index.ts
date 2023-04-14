@@ -1,6 +1,5 @@
 import Joi from '@hapi/joi'
-import { Exception } from '@src/common/interface/exception'
-import { lambdaRouter } from '@src/common/interface/middleware'
+import { Exception, lambdaRouter } from '@src/common/interface'
 import { loggerMiddleware, requestMiddleware } from '@src/common/middlewares/index'
 import { statusToRespone } from '@src/common/utils'
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
@@ -8,10 +7,23 @@ import { failed, isPass, Try } from 'huelgo-monad'
 import { AuthParams } from './auth.dto'
 
 const authParamDto = Joi.object<AuthParams>({
-  tag: Joi.string().valid('login', 'join').required(),
-  username: Joi.string().required(),
+  tag: Joi.string().valid('login', 'join', 'confirm').required(),
+  username: Joi.when('tag', {
+    is: 'join',
+    then: Joi.string().required(),
+    otherwise: Joi.string().optional(),
+  }),
   email: Joi.string().email().required(),
-  password: Joi.string().min(6).max(20).required(),
+  password: Joi.when('tag', {
+    is: 'confirm',
+    then: Joi.string().optional(),
+    otherwise: Joi.string().min(6).max(20).required(),
+  }),
+  verification_code: Joi.when('tag', {
+    is: 'confirm',
+    then: Joi.string().required(),
+    otherwise: Joi.string().optional(),
+  }),
 })
 
 export const handler = lambdaRouter(
@@ -24,7 +36,7 @@ export const handler = lambdaRouter(
     ),
   ],
   async (e: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    const [{ authHandler }, { makeResponse, Logger }] = await Promise.all([
+    const [{ authHandler: authHandler }, { makeResponse, Logger }] = await Promise.all([
       import('./auth.handler'),
       import('@src/common/utils'),
     ])

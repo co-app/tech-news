@@ -8,6 +8,15 @@
   - 텔레그램
   - 카카오톡
 
+## Use Terraform
+
+```
+  // Lambda 함수 배포
+  source alias.sh
+  cd infra/dev/lambda
+  tf init && tf plan -var-file="../tf.tfvars"
+```
+
 ## Flow
 
 ![arch](./public/arch.png)
@@ -17,9 +26,12 @@
 
 > 기능
 
-- [ ] 유저 인증
-  - [ ] 회원가입
-  - [ ] 로그인
+- [x] 유저 인증
+  - [x] 회원가입
+    - [ ] 회원가입 (before verification) DB 입력
+  - [x] 로그인
+  - [x] 이메일 확인
+    - [ ] 이메일 확인 못 받은 이메일 삭제 (DB)
 - [ ] 유저 채널 관리
 - [ ] 스케쥴링
 - [ ] 스케쥴링 실패 시 -> fail 관리
