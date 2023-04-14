@@ -8,6 +8,15 @@
   - 텔레그램
   - 카카오톡
 
+## Use Terraform
+
+```
+  // Lambda 함수 배포
+  source alias.sh
+  cd infra/dev/lambda
+  tf init && tf plan -var-file="../tf.tfvars"
+```
+
 ## Flow
 
 ![arch](./public/arch.png)

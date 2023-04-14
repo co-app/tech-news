@@ -24,7 +24,7 @@ export const handler = lambdaRouter(
     ),
   ],
   async (e: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    const [{ authHandler }, { makeResponse, Logger }] = await Promise.all([
+    const [{ authHandler: authHandler }, { makeResponse, Logger }] = await Promise.all([
       import('./auth.handler'),
       import('@src/common/utils'),
     ])
