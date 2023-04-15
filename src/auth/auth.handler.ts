@@ -5,6 +5,7 @@ import { failed, passed, Try } from 'huelgo-monad'
 import { AuthParams } from './auth.dto'
 
 export const authHandler = async (params: AuthParams): Promise<Try<Exception, boolean>> => {
+  console.log('auth Handler : ', params)
   const [{ AuthService }] = await Promise.all([import('@src/common/services')])
   const [USER_POOL_ID, CLIENT_ID] = [process.env.COGNITO_USER_POOL_ID, process.env.COGNITO_CLIENT_ID]
 

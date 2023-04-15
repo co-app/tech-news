@@ -9,11 +9,11 @@
     "test": "jest ./test"
   },
   "dependencies": {
-    "@hapi/joi": "^17.1.1",
     "amazon-cognito-identity-js": "^6.2.0",
     "aws-lambda": "^1.0.7",
     "aws-sdk": "^2.1357.0",
     "huelgo-monad": "^1.0.10",
+    "huelgo-sz": "^1.0.2",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
