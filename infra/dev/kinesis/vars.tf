@@ -17,3 +17,7 @@ variable "ENV" {
 variable "FUNC_NAME" {
     type = string
 }
+
+variable "ACCOUNT_ID" {
+    type = string
+}

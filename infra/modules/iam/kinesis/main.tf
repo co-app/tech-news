@@ -1,9 +1,31 @@
-
-resource "aws_iam_user" "kinesis_user" {
-    name = "kinesis_user"
+variable "kinesis_arn" {
+    
 }
 
-resource "aws_iam_user_policy_attachment" "kinesis_iam_attachment" {
-    policy_arn = "arn:aws:iam::aws:policy/AmazonKinesisFullAccess"
-    user = aws_iam_user.kinesis_user.name
+variable "lambda_role" {
+
+}
+
+resource "aws_iam_policy" "kinesis_policy" {
+    name = "lambda_kinesis_policy"
+    
+    policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect    = "Allow",
+        Action    = [
+          "kinesis:GetShardIterator",
+          "kinesis:GetRecords",
+          "kinesis:DescribeStream"
+        ],
+        Resource  = var.kinesis_arn
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_kinesis_attachment" {
+    policy_arn = aws_iam_policy.kinesis_policy.arn
+    role = var.lambda_role
 }

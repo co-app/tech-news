@@ -90,3 +90,4 @@
 ```
 
 <a href="https://github.com/co-app/tech-news/issues/1">중재자 역할을 Kinesis로 사용한 이유</a>
+<a href="https://registry.terraform.io/">Terraform Document</a>
