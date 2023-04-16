@@ -1,6 +1,6 @@
 # use Iam Module
 module "iam_role" {
-    source = "../../modules/lambda_iam"
+    source = "../../modules/iam/lambda"
 
     ## Variables
     func_name = var.FUNC_NAME

@@ -1,6 +1,7 @@
-ariable "AWS_REGION" {
+variable "AWS_REGION" {
     default = "ap-northeast-2"
 }
+
 variable "AWS_ACCESS_KEY" {
     type = string
 }
@@ -9,5 +10,6 @@ variable "AWS_SECRET_KEY" {
 }
 
 variable "ENV" {
+    type = string
     default = "dev"
 }
