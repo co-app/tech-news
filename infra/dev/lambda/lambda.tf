@@ -9,6 +9,8 @@ module "iam_role" {
 
 module "api_gateway" {
     source = "../../modules/api-gateway/auth"
+
+    lambda_uri = aws_lambda_function.lambda_tf.invoke_arn
 }
 
 # 1. Lambda Layer 
@@ -34,16 +36,6 @@ resource "aws_lambda_function" "lambda_tf" {
 
     source_code_hash = "${filebase64sha256("../../../lambda.zip")}"
     layers =  [aws_lambda_layer_version.lambda_layer.arn]
-}
-
-# 3. Connect Lambda to API Gateway
-resource "aws_api_gateway_integration" "lambda_gateway_integration" {
-    rest_api_id = module.api_gateway.lambda_rest_api_id
-    resource_id = module.api_gateway.lambda_resource_id
-    http_method = "POST"
-    integration_http_method = "POST"
-    type = "AWS_PROXY"
-    uri = aws_lambda_function.lambda_tf.invoke_arn
 }
 
 # Permission Lambda Later
