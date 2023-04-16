@@ -1,12 +1,11 @@
 import fs from 'fs'
 import path from 'path'
 import { executeCQRS } from '..'
-import { Command, makeCommand, makeQuery, Query } from '../../common/interface'
-import { CommandRepository, QueryRepository } from '../../common/repository'
+import { Command, makeCommand, makeQuery } from '../../common/interface'
+import { CQRSRepository } from '../../common/repository'
 
 describe('stream handler test', () => {
-  const commandRepository = new CommandRepository()
-  const queryRepository = new QueryRepository()
+  const repository = new CQRSRepository()
   const mockData = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'mock.json'), 'utf-8'))
 
   const kinesisDataStreamRequest = jest.fn((data) => {
@@ -19,8 +18,7 @@ describe('stream handler test', () => {
   })
 
   beforeEach(() => {
-    jest.spyOn(commandRepository, 'command').mockImplementation(async (c: Command): Promise<any> => c)
-    jest.spyOn(queryRepository, 'query').mockImplementation(async (q: Query): Promise<any> => q)
+    jest.spyOn(repository, 'execute').mockImplementation(async (c: Command): Promise<any> => c)
   })
 
   it('[TEST] Data Parsing Test', (done) => {
@@ -33,7 +31,7 @@ describe('stream handler test', () => {
   it('[TEST] command query', async () => {
     const commandQuery = JSON.stringify(makeQuery("insert into test values (1, 'test')"))
     const query = kinesisDataStreamRequest(Buffer.from(commandQuery).toString('base64'))
-    const v = await executeCQRS(query.Records[0], queryRepository, commandRepository)
+    const v = await executeCQRS(query.Records[0], repository)
 
     expect(v).toMatchObject({
       type: 'Query',
@@ -45,7 +43,7 @@ describe('stream handler test', () => {
   it('[TEST] invalid command', async () => {
     const commandQuery = JSON.stringify(makeCommand("insert into test values (1, 'test')"))
     const query = kinesisDataStreamRequest(Buffer.from(commandQuery).toString('base64'))
-    const v = await executeCQRS(query.Records[0], queryRepository, commandRepository)
+    const v = await executeCQRS(query.Records[0], repository)
 
     expect(v).toMatchObject({
       type: 'Command',

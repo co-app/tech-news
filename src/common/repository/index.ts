@@ -1,2 +1,1 @@
-export * from './command.repository'
-export * from './query.repository'
+export * from './repository'
