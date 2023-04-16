@@ -13,3 +13,7 @@ variable "ENV" {
     type = string
     default = "dev"
 }
+
+variable "FUNC_NAME" {
+    type = string
+}

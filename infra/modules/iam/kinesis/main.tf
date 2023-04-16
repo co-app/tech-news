@@ -1,20 +1,9 @@
-resource "aws_iam_role" "iam_kinesis" {
-    name = "iam_kinesis"
 
-    assume_role_policy = jsonencode({
-        Version = "2012-10-17"
-        Statement = [
-        {
-            Action = "sts:AssumeRole"
-            Effect = "Allow"
-            Principal = {
-            Service = "kinesis.amazonaws.com"
-            }
-        }
-        ]
-    })
+resource "aws_iam_user" "kinesis_user" {
+    name = "kinesis_user"
 }
 
-output "iam_kinesis_role" {
-    value = aws_iam_role.iam_kinesis.name
+resource "aws_iam_user_policy_attachment" "kinesis_iam_attachment" {
+    policy_arn = "arn:aws:iam::aws:policy/AmazonKinesisFullAccess"
+    user = aws_iam_user.kinesis_user.name
 }

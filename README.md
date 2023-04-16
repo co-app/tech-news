@@ -19,18 +19,15 @@
   tf init && tf plan -var-file="../tf.tfvars"
 ```
 
-> Kinesis
+> Kinesis 배포
 
 ```
   source alias.sh
   npm run cli:start
   >> stream
 
-  cd /infra/dev/lambda
+  cd /infra/dev/kinesis
   tf init && tf plan -var-file="../tf.tfvars"
-
-
-
 ```
 
 ## Flow
@@ -87,5 +84,9 @@
 ![schema](./public/db_schema.png)
 
 ## Reference
+
+```
+  terraform apply -var-file="../tf.tfvars" -auto-approve -input=true 2>&1 | tee terraform.log
+```
 
 <a href="https://github.com/co-app/tech-news/issues/1">중재자 역할을 Kinesis로 사용한 이유</a>
