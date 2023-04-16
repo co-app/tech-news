@@ -1,4 +1,4 @@
-import { isCommand, StreamCommand } from '@src/common/interface'
+import { StreamCommand } from '@src/common/interface'
 import { simpleMiddleware } from '@src/common/middlewares'
 import { CQRSRepository } from '@src/common/repository'
 import { KinesisStreamEvent, KinesisStreamRecord } from 'aws-lambda'
@@ -13,14 +13,18 @@ export const handler = async (e: KinesisStreamEvent): Promise<void> => {
 }
 
 /**
+ * @command DynamoDB - Later
+ * @query AuroraDB (Serverless)
+ *
  * @param record
  */
 export const executeCQRS = async (record: KinesisStreamRecord, repo: CQRSRepository<StreamCommand>) => {
   const bufferData = JSON.parse(Buffer.from(record?.kinesis?.data, 'base64').toString('utf-8')) as StreamCommand
 
-  if (isCommand(bufferData)) {
-    return await repo.execute(bufferData, null, null, null, null)
-  }
+  // Command
+  // if (isCommand(bufferData)) {
+  //   return await repo.execute(bufferData, null, null, null, null)
+  // }
 
   return await repo.execute(bufferData, null, null, null, null)
 }
