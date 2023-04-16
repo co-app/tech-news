@@ -21,10 +21,12 @@ export const handler = async (e: KinesisStreamEvent): Promise<void> => {
 export const executeCQRS = async (record: KinesisStreamRecord, repo: CQRSRepository<StreamCommand>) => {
   const bufferData = JSON.parse(Buffer.from(record?.kinesis?.data, 'base64').toString('utf-8')) as StreamCommand
 
+  console.log(bufferData)
+
   // Command
   // if (isCommand(bufferData)) {
   //   return await repo.execute(bufferData, null, null, null, null)
   // }
 
-  return await repo.execute(bufferData, null, null, null, null)
+  // return await repo.execute(bufferData, null, null, null, null)
 }

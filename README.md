@@ -10,11 +10,27 @@
 
 ## Use Terraform
 
+> Lambda 배포
+
 ```
   // Lambda 함수 배포
   source alias.sh
   cd infra/dev/lambda
   tf init && tf plan -var-file="../tf.tfvars"
+```
+
+> Kinesis
+
+```
+  source alias.sh
+  npm run cli:start
+  >> stream
+
+  cd /infra/dev/lambda
+  tf init && tf plan -var-file="../tf.tfvars"
+
+
+
 ```
 
 ## Flow

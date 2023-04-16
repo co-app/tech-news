@@ -8,6 +8,7 @@ export class CQRSRepository<T extends StreamCommand> {
     successFn: (a: A) => Promise<K>,
     failFn: (a: A) => Promise<K>
   ): Promise<K> => {
+    console.log(JSON.stringify(cq, null, 2))
     const result = await fn(cq)
     if (cond(result)) {
       return await successFn(result)
