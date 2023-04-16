@@ -3,7 +3,7 @@
  * @param e Event
  * @param fn 실행 함수 (간단)
  */
-export const simpleMiddleware = <Event>(e: Event, fn: (e: Event) => void) => fn(e)
+export const simpleMiddleware = <Event>(title: string, e: Event, fn: (e: Event) => void) => fn(e)
 
 /**
  * @desc 유효성 검사 및 실행 함수를 진행하는 미들웨어
