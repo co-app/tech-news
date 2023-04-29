@@ -67,7 +67,7 @@ const deployFunction = async () => {
   )
 
   for (const cmd of [
-    `rm -rf lib && rm -rf *.zip && rm -rf nodejs`,
+    `rm -rf lib && rm -rf *.zip && rm -rf nodejs && rm -rf ../*.zip`,
     `cd src/${answers} && npm install`,
     `tsc -p ./src/${answers}/tsconfig.json && tsc-alias`,
     `cp src/${answers}/package.json lib/${answers}`,
@@ -76,6 +76,8 @@ const deployFunction = async () => {
     `mkdir nodejs`,
     `cp -r src/${answers}/node_modules ./nodejs`,
     `zip -r layer.zip nodejs`,
+    'mv lambda.zip ../',
+    'mv layer.zip ../',
   ]) {
     console.log(cmd)
     await execAsync(cmd)
