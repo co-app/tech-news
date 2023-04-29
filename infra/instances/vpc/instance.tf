@@ -1,5 +1,5 @@
 module dk_public_subnet {
-    source = "../../modules/public-subnet"
+    source = "../../modules/subnet/public-subnet"
 
     DK_VPC_ID = aws_vpc.dk_vpc.id
     DK_IGW_ID = aws_internet_gateway.dk_igw.id
@@ -7,7 +7,7 @@ module dk_public_subnet {
 }
 
 module dk_private_subnet {
-    source ="../../modules/private-subnet"
+    source ="../../modules/subnet/private-subnet"
     
     DK_VPC_ID = aws_vpc.dk_vpc.id
     DK_IGW_ID = aws_internet_gateway.dk_igw.id
