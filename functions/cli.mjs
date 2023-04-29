@@ -1,8 +1,10 @@
 import { exec } from 'child_process'
+import fs from 'fs'
 import inquirer from 'inquirer'
 import { promisify } from 'util'
 
 const execAsync = promisify(exec)
+
 const processInquire = async (title, args = ['make function', 'deploy function']) =>
   await inquirer
     .prompt({
@@ -18,7 +20,7 @@ const inputProcess = async () =>
     .prompt({
       type: 'input',
       name: 'option',
-      message: '1. What Make Function?',
+      message: 'What Make Function?',
     })
     .then((res) => res.option)
 
@@ -42,7 +44,15 @@ const makeFunction = async () => {
 }
 
 const deployFunction = async () => {
-  // Todo
+  const answers = await processInquire(
+    'What Deploy Function?',
+    fs.readdirSync('./src').filter((it) => it != 'common')
+  )
+
+  for (const cmd of []) {
+    console.log(cmd)
+    await execAsync(cmd)
+  }
 }
 
 ;(async () => {
