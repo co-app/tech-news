@@ -9,7 +9,3 @@ variable "DK_IGW_ID" {
 variable "AWS_REGION" {
     type = string
 }
-
-# variable "DK_NAT_GATEWAY_ID" {
-#     type = string
-# }

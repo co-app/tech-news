@@ -1,7 +1,7 @@
 ## Public Subnet (1 ~ 100)
 resource "aws_subnet" "dk_public_subnet" {
   vpc_id = var.DK_VPC_ID
-  cidr_block = "10.0.1.0/24" ## 10.0.1.0 ~ 10.0.1.255
+  cidr_block = "10.0.1.0/24"
   availability_zone = "${var.AWS_REGION}a"
 
   tags = {
